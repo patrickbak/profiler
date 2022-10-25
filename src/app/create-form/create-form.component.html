@@ -1,0 +1,155 @@
+<!-- View for new profile form -->
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <!-- Form -->
+      <form class="form" [formGroup]="formGroup">
+        <div class="cross-validation"
+          [class.cross-validation-error]="formGroup.invalid && (formGroup.touched || formGroup.dirty)">
+          <!-- Name input -->
+          <mat-form-field class="form-group">
+            <mat-label for="formName" class="required">
+              Name:
+            </mat-label>
+            <input matInput formControlName="formName" required id="formName" type="text" value="profile.name">
+          </mat-form-field>
+          <div *ngIf="formName.invalid && (formName.dirty || formName.touched)" class="alert alert-danger">
+            <div *ngIf="formName.errors.required">
+              Name is required.
+            </div>
+            <div *ngIf="formName.errors.minlength">
+              Name must be at least 3 characters long.
+            </div>
+            <div *ngIf="formName.errors.maxlength">
+              Name must not exceed 15 characters long.
+            </div>
+            <div *ngIf="formName.errors.pattern">
+              Name must start with capital letter and contain only letters.
+            </div>
+          </div>
+          <br>
+          <!-- Surname input -->
+          <mat-form-field class="form-group">
+            <mat-label for="formSurname" class="required">
+              Surname:
+            </mat-label>
+            <input matInput id="formSurname" type="text" formControlName="formSurname" required value="profile.surname">
+          </mat-form-field>
+          <div *ngIf="formSurname.invalid && (formSurname.dirty || formSurname.touched)" class="alert alert-danger">
+            <div *ngIf="formSurname.errors.required">
+              Surname is required.
+            </div>
+            <div *ngIf="formSurname.errors.minlength">
+              Surname must be at least 3 characters long.
+            </div>
+            <div *ngIf="formSurname.errors.maxlength">
+              Surname must not exceed 25 characters long.
+            </div>
+            <div *ngIf="formSurname.errors.pattern">
+              Surname must start with capital letter and contain only letters.
+            </div>
+          </div>
+          <br>
+          <!-- Birth Date input -->
+          <mat-form-field class="form-group">
+            <mat-label for="formBirthDate" class="required">
+              Birth Date:
+            </mat-label>
+            <input matInput [matDatepicker]="birthDate" id="formBirthDate" formControlName="formBirthDate" required
+              value="profile.birthDate">
+            <mat-datepicker-toggle matSuffix [for]="birthDate">
+            </mat-datepicker-toggle>
+            <mat-datepicker #birthDate></mat-datepicker>
+          </mat-form-field>
+          <div *ngIf="formBirthDate.invalid && (formBirthDate.dirty || formBirthDate.touched)"
+            class="alert alert-danger">
+            <div *ngIf="formBirthDate.errors.required">
+              Birth Date is required.
+            </div>
+          </div>
+          <br>
+          <!-- Gender input -->
+          <mat-radio-group class="form-group" formControlName="formGender" required value="profile.gender">
+            <label class="required">Gender:</label>
+            <mat-radio-button value="Male">
+              Male
+            </mat-radio-button>
+            <mat-radio-button value="Female">
+              Female
+            </mat-radio-button>
+          </mat-radio-group>
+          <div *ngIf="formGender.invalid && (formGender.dirty || formGender.touched)" class="alert alert-danger">
+            <div *ngIf="formGender.errors.required">
+              Gender is required.
+            </div>
+          </div>
+          <br>
+          <!-- Nationality selection input -->
+          <mat-form-field>
+            <mat-select class="form-group required" formControlName="formNationalities" required
+              placeholder="Nationality:" value="profileNationalities" multiple>
+              <mat-option id="Nationality" *ngFor="let option of options" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div *ngIf="formNationalities.invalid && (formNationalities.dirty || formNationalities.touched)"
+            class="alert alert-danger">
+            <div *ngIf="formNationalities.errors.required">
+              Nationality is required.
+            </div>
+          </div>
+          <br>
+          <!-- Email input -->
+          <mat-form-field class="form-group">
+            <mat-label for="formEmail" class="required">
+              Email:
+            </mat-label>
+            <input matInput id="formEmail" type="text" formControlName="formEmail" required value="profile.email">
+          </mat-form-field>
+          <div *ngIf="formEmail.invalid && (formEmail.dirty || formEmail.touched)" class="alert alert-danger">
+            <div *ngIf="formEmail.errors.required">
+              Email is required.
+            </div>
+            <div *ngIf="formEmail.errors.email">
+              Email must be valid.
+            </div>
+          </div>
+          <div>
+            <!-- Phone input -->
+            <mat-form-field class="form-group">
+              <mat-label for="formPhone">Phone:</mat-label>
+              <input matInput id="formPhone" type="text" required formControlName="formPhone" value="profile.phone">
+            </mat-form-field>
+            <div *ngIf="formPhone.invalid && (formPhone.dirty || formPhone.touched)" class="alert alert-danger">
+              <div *ngIf="formPhone.errors.minlength">
+                Phone must be at least 9 characters long.
+              </div>
+              <div *ngIf="formPhone.errors.maxlength">
+                Phone cannot exceed 15 characters long.
+              </div>
+              <div *ngIf="formPhone.errors.pattern">
+                Phone can only contain numbers.
+              </div>
+            </div>
+            <br>
+          </div>
+          <!-- Submit button -->
+          <div>
+            <button matButton type="button" [disabled]="!formGroup.valid" (click)="onSubmit()"
+              class="confirm-button btn btn-primary" [routerLink]="['/profile-created']">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Profile image (example) -->
+    <div class="col-4 profile-image">
+      <a href="https://pngimage.net/default-profile-picture-png-7/" title="Image from PNG Image" target="_blank">
+        <img src="https://pngimage.net/wp-content/uploads/2018/05/default-profile-picture-png-7.png"
+          alt="default profile picture png 7">
+      </a>
+    </div>
+  </div>
+</div>

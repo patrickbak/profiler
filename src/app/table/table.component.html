@@ -1,0 +1,41 @@
+<div class="container">
+  <table class="table-striped table-hover profiles-table">
+    <!-- Headers -->
+    <tr>
+      <th *ngFor="let header of headers">
+        {{ header }}
+      </th>
+    </tr>
+    <!-- Rows -->
+    <tr *ngFor="let profile of dataSource">
+      <td>
+        {{ profile.id }}
+      </td>
+      <td>
+        {{ profile.name }}
+      </td>
+      <td>
+        {{ profile.surname }}
+      </td>
+      <td>
+        {{ profile.email }}
+      </td>
+      <td>
+        {{ profile.creationDate | date: 'medium' }}
+      </td>
+      <td>
+        {{ profile.isActive }}
+      </td>
+      <td>
+        <button class="mat-button column-button btn read" (click)="viewProfile(profile)"
+          [routerLink]="['/table/profile-details', profile.id]">
+          Details
+        </button>
+        <button class="mat-button column-button btn delete" (click)="deleteProfile(profile)"
+          [routerLink]="['/table/profile-deleted', profile.id]">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
